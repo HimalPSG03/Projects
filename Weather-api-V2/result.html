@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Result</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="weather-container">
+        <h1>Weather in {{city}}</h1>
+        <div class="weather-info">
+            <img src="{{iconUrl}}" alt="Weather Icon" class="weather-icon animate-fade">
+            <h2 class="temperature animate-slide">Temperature: {{temperature}}°C</h2>
+            <p class="description animate-fade">{{weatherDescription}}</p>
+        </div>
+        <a href="/" class="back-link">Check Another City</a>
+    </div>
+</body>
+</html>

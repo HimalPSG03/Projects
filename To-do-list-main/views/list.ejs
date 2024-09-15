@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <div class="box">
+        <h1 id="heading"><%= listTitle %></h1>
+
+        <form action="/" method="post">
+            <input type="text" name="t1" placeholder="New Item" required>
+            <select name="category">
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category %>"><%= category %></option>
+                <% }); %>
+            </select>
+            <select name="priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <input type="date" name="dueDate">
+            <button type="submit">+</button>
+        </form>
+
+        <ul id="task-list">
+            <% newListItems.forEach(function(item, index) { %>
+                <li class="item" id="item-<%= index %>">
+                    <p><strong>Task:</strong> <%= item.name %></p>
+                    <p><strong>Category:</strong> <%= item.category %></p>
+                    <p><strong>Priority:</strong> <%= item.priority %></p>
+                    <p><strong>Due Date:</strong> <%= item.dueDate %></p>
+
+                    <form class="delete-form" action="/delete" method="post" onsubmit="return animateDeletion(<%= index %>)">
+                        <input type="hidden" name="itemIndex" value="<%= index %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+
+        <form action="/addCategory" method="post">
+            <input type="text" name="newCategory" placeholder="New Category">
+            <button type="submit">Add Category</button>
+        </form>
+    </div>
+
+    <script>
+        function animateDeletion(index) {
+            const task = document.getElementById("item-" + index);
+            task.classList.add("removing");
+
+            setTimeout(function() {
+                task.querySelector("form").submit();
+            }, 500);
+
+            return false; 
+        }
+    </script>
+</body>
+</html>
